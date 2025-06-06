@@ -12,8 +12,8 @@ pub mod twitter {
 
     use super::*;
 
-    pub fn initialize(ctx: Context<InitializeTweet>, topic: String, content: String) -> Result<()> {
-        initialize_tweet(ctx, topic, content)
+    pub fn initialize(ctx: Context<InitializeTweet>, topic: String, content: String, image: Option<String>) -> Result<()> {
+        initialize_tweet(ctx, topic, content, image)
     }
     pub fn like_tweet(ctx: Context<AddReactionContext>) -> Result<()> {
         add_reaction(ctx, states::ReactionType::Like)

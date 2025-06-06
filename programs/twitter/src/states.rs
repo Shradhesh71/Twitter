@@ -4,6 +4,8 @@ pub const TOPIC_LENGTH: usize = 32;
 pub const CONTENT_LENGTH: usize = 500;
 pub const COMMENT_LENGTH: usize = 500;
 
+pub const IMAGE_LENGTH: usize = 200;
+
 pub const TWEET_SEED: &str = "TWEET_SEED";
 pub const TWEET_REACTION_SEED: &str = "TWEET_REACTION_SEED";
 pub const COMMENT_SEED: &str = "COMMENT_SEED";
@@ -23,11 +25,12 @@ pub struct Tweet {
     pub likes: u64,
     pub dislikes: u64,
     pub bump: u8,
+    pub image: [u8; IMAGE_LENGTH], 
 }
 
 impl Tweet {
-    // Pubkey + [u8; TOPIC_LENGTH] + u8 + [u8; CONTENT_LENGTH] + u64 + u64 + u8
-    pub const LEN: usize = 32 + TOPIC_LENGTH + 1 + CONTENT_LENGTH + 8 + 8 + 1;
+    // Pubkey + [u8; TOPIC_LENGTH] + u8 + [u8; CONTENT_LENGTH] + u64 + u64 + u8 + [u8; IMAGE_LENGTH]
+    pub const LEN: usize = 32 + TOPIC_LENGTH + 1 + CONTENT_LENGTH + 8 + 8 + 1 + IMAGE_LENGTH;
 }
 
 #[account]

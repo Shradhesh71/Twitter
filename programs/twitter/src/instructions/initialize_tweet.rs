@@ -7,6 +7,7 @@ pub fn initialize_tweet(
     ctx: Context<InitializeTweet>,
     topic: String,
     content: String,
+    image: Option<String>,
 ) -> Result<()> {
     let initialized_tweet = &mut ctx.accounts.tweet;
 
@@ -19,6 +20,7 @@ pub fn initialize_tweet(
         content.as_bytes().len() <= CONTENT_LENGTH,
         TwitterError::ContentTooLong
     );
+    
 
     let mut topic_data = [0u8; TOPIC_LENGTH];
 
@@ -33,6 +35,12 @@ pub fn initialize_tweet(
     initialized_tweet.tweet_author = ctx.accounts.tweet_authority.key();
     initialized_tweet.likes = 0;
     initialized_tweet.dislikes = 0;
+
+    if let Some(image) = image {
+        let mut image_data = [0u8; IMAGE_LENGTH];
+        image_data[..image.as_bytes().len()].copy_from_slice(image.as_bytes());
+        initialized_tweet.image = image_data;
+    }
 
     initialized_tweet.bump = ctx.bumps.tweet;
 
